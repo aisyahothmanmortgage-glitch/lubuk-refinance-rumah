@@ -16,8 +16,9 @@
       text-align: center;
     }
     h3 {
-      color: #ebb832;
       margin-top: 20px;
+      color: #3cb371; /* hijau terang */
+      font-weight: bold;
     }
     label {
       display: block;
@@ -223,6 +224,20 @@ function calculate() {
   let fec = mv * 0.10; 
   let totalFinancing = financing90 + fec;
 
+  function calcServiceFee(totalLoan) {
+    if(totalLoan <= 100000) {
+      return 3000;
+    } else if(totalLoan >= 101000 && totalLoan <= 199999) {
+      return totalLoan * 0.03;
+    } else if(totalLoan >= 200000 && totalLoan <= 499999) {
+      return totalLoan * 0.02;
+    } else if(totalLoan >= 500000) {
+      return totalLoan * 0.01;
+    } else {
+      return 0;
+    }
+  }
+
   if(loanType === "Option1") {
     let cashOut = financing90 - outstandingLoan;
     let netCashoutText = cashOut < 0 ? `NEGATIVE CASH OUT: RM ${Math.abs(cashOut).toFixed(2)}` : `RM ${cashOut.toFixed(2)}`;
@@ -313,13 +328,6 @@ function calculateReducingBalance(principal, annualInterestRate, years) {
   if(r === 0) return principal / n;
   let emi = principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
   return emi;
-}
-
-function calcServiceFee(totalLoan) {
-  if(totalLoan <= 100000) return 3000;
-  else if(totalLoan > 100000 && totalLoan < 200000) return totalLoan * 0.03;
-  else if(totalLoan >= 200000 && totalLoan < 500000) return totalLoan * 0.02;
-  else return totalLoan * 0.01;
 }
 
 function currencyFormat(num) {
