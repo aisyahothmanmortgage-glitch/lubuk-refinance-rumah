@@ -64,6 +64,19 @@
       border-radius: 8px;
       font-weight: bold;
     }
+    .compare-box {
+      background-color: #b8860b;
+      color: #000;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 1.1em;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .compare-box p {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
@@ -279,7 +292,6 @@ function calculate() {
     let commitHL = Number(document.getElementById('commitHL').value);
     let commitOther = Number(document.getElementById('commitOther').value);
     let totalCommitBefore = commitCC + commitPL + commitHL + commitOther;
-    // Setelah refinancing, komitmen baru adalah instalmen + komitmen lain (bukan diselesaikan)
     let totalCommitAfter = totalMonthlyInstallment + commitOther;
 
     showResult({
@@ -340,7 +352,7 @@ function showResult(data) {
   html += `<div style="margin-top:20px; padding:15px; background-color:#daa520; color:#000; font-size:1.6em; font-weight:bold; border-radius:8px; text-align:center;">`;
   html += `ANGGARAN CASH OUT:<br><span>${data.cashOut}</span></div>`;
 
-  html += `<hr style="border-color:#bb9933; margin-top:20px; margin-bottom:10px;">`;
+  html += `<div class="compare-box">`;
   html += `<h3>Perbandingan Komitmen Bulanan</h3>`;
   html += `<p><strong>Jumlah Komitmen Sebelum Refinance:</strong> ${currencyFormat(data.totalCommitBefore)}</p>`;
   html += `<p><strong>Jumlah Komitmen Selepas Refinance:</strong> ${currencyFormat(data.totalCommitAfter)}</p>`;
@@ -352,6 +364,7 @@ function showResult(data) {
   html += `<p><strong>Service Fee:</strong> ${currencyFormat(data.serviceFee)}</p>`;
   html += `<p><strong>DSR:</strong> ${(data.DSR * 100).toFixed(2)}% &nbsp;&nbsp; <strong>NDI:</strong> ${currencyFormat(data.NDI)}</p>`;
   html += `<p style="font-weight:bold;">Status: ${data.statusText}</p>`;
+  html += `</div>`;
 
   res.innerHTML = html;
   res.style.display = 'block';
